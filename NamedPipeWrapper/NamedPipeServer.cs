@@ -27,6 +27,7 @@ namespace NamedPipeWrapper
         /// Constructs a new <c>NamedPipeServer</c> object that listens for client connections on the given <paramref name="pipeName"/>.
         /// </summary>
         /// <param name="pipeName">Name of the pipe to listen on</param>
+        /// <param name="pipeSecurity">Security for the pipe</param>
         public NamedPipeServer(string pipeName, PipeSecurity pipeSecurity)
             : base(pipeName, pipeSecurity)
         {
@@ -69,12 +70,12 @@ namespace NamedPipeWrapper
         private int _nextPipeId;
 
         private volatile bool _shouldKeepRunning;
-        private volatile bool _isRunning;
 
         /// <summary>
         /// Constructs a new <c>NamedPipeServer</c> object that listens for client connections on the given <paramref name="pipeName"/>.
         /// </summary>
         /// <param name="pipeName">Name of the pipe to listen on</param>
+        /// <param name="pipeSecurity">Security for the pipe</param>
         public Server(string pipeName, PipeSecurity pipeSecurity)
         {
             _pipeName = pipeName;
@@ -137,12 +138,10 @@ namespace NamedPipeWrapper
 
         private void ListenSync()
         {
-            _isRunning = true;
             while (_shouldKeepRunning)
             {
                 WaitForConnection(_pipeName, _pipeSecurity);
             }
-            _isRunning = false;
         }
 
         private void WaitForConnection(string pipeName, PipeSecurity pipeSecurity)
