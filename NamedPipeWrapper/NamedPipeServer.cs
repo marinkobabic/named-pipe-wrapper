@@ -24,13 +24,23 @@ namespace NamedPipeWrapper
 		{
 		}
 
-		/// <summary>
+        /// <summary>
 		/// Constructs a new <c>NamedPipeServer</c> object that listens for client connections on the given <paramref name="pipeName"/>.
 		/// </summary>
 		/// <param name="pipeName">Name of the pipe to listen on</param>
 		/// <param name="bufferSize">Size of input and output buffer</param>
 		/// <param name="security">And object that determine the access control and audit security for the pipe</param>
-		public NamedPipeServer(string pipeName, int bufferSize, PipeSecurity security)
+		public NamedPipeServer(string pipeName, PipeSecurity security)
+            : base(pipeName, 0, security)
+        { }
+
+        /// <summary>
+        /// Constructs a new <c>NamedPipeServer</c> object that listens for client connections on the given <paramref name="pipeName"/>.
+        /// </summary>
+        /// <param name="pipeName">Name of the pipe to listen on</param>
+        /// <param name="bufferSize">Size of input and output buffer</param>
+        /// <param name="security">And object that determine the access control and audit security for the pipe</param>
+        public NamedPipeServer(string pipeName, int bufferSize, PipeSecurity security)
 			: base(pipeName, bufferSize, security)
 		{ }
 	}
